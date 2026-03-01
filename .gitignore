@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build
+dist/
+*.local
+
+# Env and logs
+.env
+.env.*
+*.log
+
+# Test and tooling
+coverage/
+.nyc_output/
+cypress/screenshots/
+cypress/videos/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# MTA (if built from this folder)
+mta_archives/

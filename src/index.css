@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth transitions for dark mode */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Custom scrollbar for dark mode */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* AMOLED (pitch black) theme.
+   We keep Tailwind's `dark:` variants active, but force surfaces/backgrounds to pure black. */
+.amoled body {
+  background: #000;
+}
+
+.amoled ::-webkit-scrollbar-track {
+  background: #000;
+}
+
+.amoled ::-webkit-scrollbar-thumb {
+  background: #1f2937; /* gray-800 */
+}
+
+.amoled ::-webkit-scrollbar-thumb:hover {
+  background: #374151; /* gray-700 */
+}
+
+/* Override common dark surfaces to true black */
+.amoled .dark\:bg-gray-900 {
+  background-color: #000 !important;
+}
+.amoled .dark\:bg-gray-800 {
+  background-color: #000 !important;
+}
+.amoled .dark\:bg-gray-700 {
+  background-color: #000 !important;
+}
+
+/* Slightly adjust borders so they remain visible on pure black */
+.amoled .dark\:border-gray-700 {
+  border-color: #1f2937 !important; /* gray-800 */
+}
+.amoled .dark\:border-gray-800 {
+  border-color: #111827 !important; /* gray-900-ish */
+}

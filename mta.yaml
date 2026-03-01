@@ -1,0 +1,26 @@
+_schema-version: "3.3"
+ID: prapp-frontend
+version: 1.0.0
+
+parameters:
+  keep-existing-routes: true
+
+modules:
+  - name: prapp-frontend
+    type: nodejs
+    path: .
+    parameters:
+      app-name: prapp-frontend
+      disk-quota: 512M
+      memory: 256M
+      build-parameters:
+        ignore:
+          - node_modules
+          - ".git"
+          - cypress
+          - cypress.config.js
+          - "*.md"
+          - coverage
+        commands:
+          - npm ci
+          - npm run build
