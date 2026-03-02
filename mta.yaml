@@ -1,26 +1,100 @@
-_schema-version: "3.3"
-ID: prapp-frontend
+_schema-version: "3.2"
+ID: procurement-frontend
 version: 1.0.0
 
-parameters:
-  keep-existing-routes: true
-
 modules:
-  - name: prapp-frontend
-    type: nodejs
-    path: .
+  - name: procurement-frontend-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: procurement-frontend-destination-service
+        parameters:
+          content-target: true
+      - name: procurement-frontend_html_repo_host
+        parameters:
+          service-key:
+            name: procurement-frontend_html_repo_host-key
+      - name: uaa_procurement-frontend
+        parameters:
+          service-key:
+            name: uaa_procurement-frontend-key
     parameters:
-      app-name: prapp-frontend
-      disk-quota: 512M
-      memory: 256M
-      build-parameters:
-        ignore:
-          - node_modules
-          - ".git"
-          - cypress
-          - cypress.config.js
-          - "*.md"
-          - coverage
-        commands:
-          - npm ci
-          - npm run build
+      content:
+        instance:
+          destinations:
+            - Name: procurement-frontend_procurement-frontend_html_repo_host
+              ServiceInstanceName: procurement-frontend-html5-app-host-service
+              ServiceKeyName: procurement-frontend_html_repo_host-key
+              sap.cloud.service: procurement-frontend
+            - Authentication: OAuth2UserTokenExchange
+              Name: procurement-frontend_uaa_procurement-frontend
+              ServiceInstanceName: procurement-frontend-xsuaa-service
+              ServiceKeyName: uaa_procurement-frontend-key
+              sap.cloud.service: procurement-frontend
+          existing_destinations_policy: ignore
+    build-parameters:
+      no-source: true
+
+  - name: procurement-frontend-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: procurement-frontend_html_repo_host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - procurement-frontend.zip
+          name: procurement-frontend
+          target-path: resources/
+
+
+  - name: procurement-frontend
+    type: html5
+    path: .
+    build-parameters:
+      build-result: .
+      # builder: custom
+      # commands:
+      # - npm install
+      # - npm run build
+      # - npm run zip
+      supported-platforms: []
+
+
+resources:
+  - name: procurement-frontend-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+            existing_destinations_policy: update
+        version: 1.0.0
+      service: destination
+      service-name: procurement-frontend-destination-service
+      service-plan: lite
+  - name: procurement-frontend_html_repo_host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: procurement-frontend-html5-app-host-service
+      service-plan: app-host
+  - name: uaa_procurement-frontend
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./public/xs-security.json
+      service: xsuaa
+      service-name: procurement-frontend-xsuaa-service
+      service-plan: application
+parameters:
+  deploy_mode: html5-repo
+
