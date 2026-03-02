@@ -3,6 +3,7 @@ node_modules/
 
 # Build
 dist/
+webapp/
 *.local
 
 # Env and logs
