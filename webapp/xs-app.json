@@ -1,0 +1,22 @@
+{
+  "welcomeFile": "/index.html",
+  "authenticationMethod": "route",
+  "routes": [
+    {
+      "source": "^/api/(.*)$",
+      "target": "/api/$1",
+      "destination": "destination_backend_prapp",
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/index.html$",
+      "service": "app-front",
+      "cacheControl": "no-cache, no-store, must-revalidate"
+    },
+    {
+      "source": "^(.*)$",
+      "target": "$1",
+      "service": "app-front"
+    }
+  ]
+}
