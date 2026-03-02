@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   base: './', // Ensures index.html uses ./assets/... (avoids 404 when served from HTML5 repo)
   build: {
-    outDir: 'webapp',
+    outDir: 'dist',
   },
   server: {
     port: 3000,
