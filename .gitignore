@@ -4,6 +4,7 @@ node_modules/
 # Build
 dist/
 webapp/
+prapp-frontend-content.zip
 *.local
 
 # Env and logs
