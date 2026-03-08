@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "zip": "cd dist && npx bestzip ../resources/procurement-frontend.zip .",
+    "zip": "mkdir -p resources && cd dist && npx bestzip ../resources/procurement-frontend.zip .",
     "preview": "vite preview",
     "start": "serve -s dist -l ${PORT:-3000}",
     "test": "vitest",
