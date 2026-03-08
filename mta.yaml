@@ -30,6 +30,11 @@ modules:
               ServiceInstanceName: procurement-frontend-xsuaa-service
               ServiceKeyName: uaa_procurement-frontend-key
               sap.cloud.service: procurement-frontend
+            - Authentication: OAuth2UserTokenExchange
+              Name: procurement-backend
+              Type: HTTP
+              ProxyType: Internet
+              URL: https://ew-btp-cf-dev-dev-prapp-backend.cfapps.ap11.hana.ondemand.com/
           existing_destinations_policy: ignore
     build-parameters:
       no-source: true
