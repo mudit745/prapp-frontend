@@ -30,11 +30,6 @@ modules:
               ServiceInstanceName: procurement-frontend-xsuaa-service
               ServiceKeyName: uaa_procurement-frontend-key
               sap.cloud.service: procurement-frontend
-            - Authentication: OAuth2UserTokenExchange
-              Name: procurement-backend
-              Type: HTTP
-              ProxyType: Internet
-              URL: https://ew-btp-cf-dev-dev-prapp-backend.cfapps.ap11.hana.ondemand.com/
           existing_destinations_policy: ignore
     build-parameters:
       no-source: true
@@ -82,6 +77,11 @@ resources:
                 ProxyType: Internet
                 Type: HTTP
                 URL: https://ui5.sap.com
+              - Authentication: OAuth2UserTokenExchange
+                Name: procurement-backend
+                Type: HTTP
+                ProxyType: Internet
+                URL: https://ew-btp-cf-dev-dev-prapp-backend.cfapps.ap11.hana.ondemand.com/
             existing_destinations_policy: update
         version: 1.0.0
       service: destination
